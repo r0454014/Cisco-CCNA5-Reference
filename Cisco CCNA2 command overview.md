@@ -11,8 +11,8 @@ The command list presents the command, followed by a basic description of its fu
 List of Commands
 ----------------
 
-### Chapter 6
-Compiled By: Rob Oosthoek test
+### Chapter 6 - Static Routing
+Compiled By: Rob Oosthoek
 
 #### IPv4
 
@@ -89,6 +89,79 @@ Attention: use the correct number of networking-bits with the subnet
 1. `Router #: conf t`
 2. `Router (config)#: ipv6 unicast-routing`
 3. `Router (config)#: ipv6 route (destination-ipv6/prefix-length) (ipv6-address-next-router | exit-int)`
+
+----------
+
+### Chapter 7 - Routing Dynamically
+Compiled By: Rob Oosthoek
+
+#### IPV4 RIPv1/RIPv2
+
+##### Configuring RIP
+- `Router #: conf t`
+- `Router (config)#: router rip`
+- `Router (config-router)#: ?`
+
+##### Advertising Networks
+- `Router #: conf t`
+- `Router (config)#: router rip`
+- `Router (config-router)#: network 192.168.1.0`
+- `Router (config-router)#: network 192.168.2.0`
+What interfaces the Router should use to communicate with other routers. These're also advertised.
+
+##### Examining Default RIP Settings
+- `Router #: Show ip protocols`
+- `Router #: Show ip route | begin Gateway`
+
+##### Enabling RIPv2
+- `Router #: conf t`
+- `Router (config)#: router rip`
+- `Router (config)#: version 2`
+
+##### Disabling Auto Summarization
+- `Router #: conf t`
+- `Router (config)#: router rip`
+- `Router (config)#: no auto-summary`
+RIPv2 must be enabled to do this.
+
+##### Configuring Passive Interfaces
+- `Router #: conf t`
+- `Router (config)#: router rip`
+- `Router (config)#: passive-interface g0/0`
+RIP should only be sending updates to other routers. Int g0/0 no longer sends/receives updates.
+
+##### Propagating A Default Route
+- `Router #: conf t`
+- `Router (config)#: ip route 0.0.0.0 0.0.0.0 exit-int next-hop-ip`
+- `Router (config)#: router rip`
+- `Router (config)#: default-information originate`
+This is like a Static Default Route, advertised to other routers.
+
+
+
+#### IPV6 RIPng
+
+##### Advertising IPv6 Networks
+- `Router #: conf t`
+- `Router (config)#: ipv6 unicast-routing`
+- `Router (config)#: interface g0/0`
+- `Router (config-if)#: ipv6 rip (domain-name) enable`
+- `Router (config)#: interface s0/0/0`
+- `Router (config-if)#: ipv6 rip (domain-name) enable`
+- `Router (config-if)#: no shutdown`
+
+##### Propagating A Default Route
+- `Router #: conf t`
+- `Router (config)#: ipv6 unicast-routing`
+- `Router (config)#: ipv6 route 0::/0 2001:DB8:FEED:1::1 (ip-address-next-router -> niet zeker :S)`
+- `Router (config)#: interface s0/0/0`
+- `Router (config-if)#: ipv6 rip (domain-name) default-information originate`
+7.3.2.1 anyone? plz? XD
+
+##### Examining RIPng Configuration
+- `Router #: show ipv6 protocols`
+- `Router #: show ipv6 route`
+- `Router #: show ipv6 route rip`
 
 ----------
 
