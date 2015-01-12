@@ -1,9 +1,9 @@
-Cisco CCNA2 command overview - Chapter 10-11
+Cisco CCNA2 Command Overview
 ============================================
 About
 -----
 Round brackets () indicate required variables, square brackets [] indicate optional variables.  
-Piping symbols  |  indicate options.
+Piping symbols  |  indicate options.  
 All types of backquotes and asterisks in this source file are to be ignored; they are only relevant for Markdown rendering.
 
 The command list presents the command, followed by a basic description of its functionality.
@@ -122,7 +122,7 @@ Sets the DHCP lease duration. Default is 1 day.
 8. `Router (dhcp-config)#: lease infinite`  
 Sets the DHCP lease duration to infinite.
 9. `Router (dhcp-config)#: netbios-name-server (address) [fallback-address1 ... fallback-address7]`  
-Defines the [netBIOS][1] WINS server.
+Defines the [netBIOS][netbios] WINS server.
 
 ##### Configuring a Router Port as DHCP Client
 After selecting the interface to configure, enter:  
@@ -188,7 +188,7 @@ If all is OK, the output should remain empty.
 Other useful command: `debug ip dhcp server events`  
 This command shows all server events related to DHCP requests.
 
-#### [SLAAC][2] and DHCPv6
+#### [SLAAC][slaac] and DHCPv6
 1. `ipv6 unicast-routing`  
 Enables IPv6 routing
 2. `no ipv6 nd managed-config-flag` and `no ipv6 nd other-config-flag`  
@@ -261,8 +261,83 @@ Verifies the method of address allocation indicated in the RA message as indicat
 #### Debugging a DHCPv6 Configuration
 1. `Router #: debug ipv6 dhcp detail`
 
-[1]: http://www.wikiwand.com/en/NetBIOS
-[2]: http://www.wikiwand.com/en/IPv6#/Stateless_address_autoconfiguration_.28SLAAC.29
+[netbios]: http://www.wikiwand.com/en/NetBIOS
+[slaac]: http://www.wikiwand.com/en/IPv6#/Stateless_address_autoconfiguration_.28SLAAC.29
 
---------
+---------
+
+### Chapter 11
+Compiled By: Gerard van Kempen
+
+#### Configuring Static [NAT][nat]
+1. `Router (config)#: ip nat inside source static (local-ip) (global-ip)`
+2. `Router (config)#: interface (interface)`  
+Specifies inside interface.
+3. `Router (if-config)#: ip nat inside`  
+Sets inside interface.
+4. `Router (if-config)#: exit`
+5. `Router (config)#: interface (interface)`  
+Specifies outside interface.
+6. `Router (if-config)#: ip nat outside`  
+Sets outside interface.
+
+#### Verifying Static NAT
+- Option 1: `Router #: show ip nat translations`
+- Option 2:
+  1. `Router #: clear ip nat statistics`
+  2. `Router #: show ip nat statistics`
+
+#### Configuring Dynamic NAT
+1. `Router (config)#: ip nat pool (name) [start-ip] [end-ip] [netmask (netmask) | prefix-length (prefixlength)]`
+2. `Router (config)#: access-list (ACL-number) permit (source) [source-wildcard]`
+3. `Router (config)#: ip nat inside source list (ACL-number) pool (name)`
+4. Select interface, then: `Router (if-config)#: ip nat inside`
+5. Select interface, then: `Router (if-config)#: ip nat outside`
+
+#### Verifying Dynamic NAT
+- Option 1: `Router #: show ip nat translations`
+- Option 2:
+  1. `Router #: clear ip nat statistics`
+  2. `Router #: show ip nat statistics`
+- Option 3:
+  1. `Router #: clear ip nat translations`
+  2. `Router #: show ip nat translations`
+
+#### Configuring [PAT][pat]
+##### Address Pool
+1. `Router (config)#: ip nat pool (name) [start-ip] [end-ip] [netmask (netmask) | prefix-length (prefixlength)]`
+2. `Router (config)#: access-list (ACL-number) permit (source) [source-wildcard]`
+3. `Router (config)#: ip nat inside source list (ACL-number) pool (name) overload`
+4. Select interface, then: `Router (if-config)#: ip nat inside`
+5. Select interface, then: `Router (if-config)#: ip nat outside`
+
+##### Single Address
+1. `Router (config)#: access-list (ACL-number) permit (source) [source-wildcard]`
+2. `Router (config)#: ip nat inside source list (ACL-number) interface (interface) overload`
+3. Select interface, then: `Router (if-config)#: ip nat inside`
+4. Select interface, then: `Router (if-config)#: ip nat outside`
+
+#### Verifying PAT
+- Option 1:
+  1. `Router #: clear ip nat statistics`
+  2. `Router #: show ip nat statistics`
+- Option 2:
+  1. `Router #: clear ip nat translations`
+  2. `Router #: show ip nat translations`
+
+#### Port Forwarding in IOS
+`ip nat inside source static (tcp | udp [local-ip] [local-port] [global-ip] [global-port]) [extendable]`
+
+#### Troubleshooting NAT
+Use any combination of following commands to pinpoint the issue:
+- Router #: show ip nat translations`
+- Router #: show ip nat statistics`
+- Router #: clear ip nat translation *`
+- Router #: clear ip nat statistic`
+- Router #: debug ip nat detailed` (debugging)
+
+
+
+[nat]: http://www.wikiwand.com/en/Network_address_translation
+[pat]: http://www.wikiwand.com/en/Network_address_translation#/Port_address_translation
 
