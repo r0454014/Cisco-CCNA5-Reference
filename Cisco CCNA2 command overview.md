@@ -92,7 +92,7 @@ Attention: use the correct number of networking-bits with the subnet
 
 ----------
 
-### Chapter 7 - Routing Dynamically
+### Chapter 7 - Routing Dynamically  
 Compiled By: Rob Oosthoek
 
 #### IPV4 RIPv1/RIPv2
@@ -106,7 +106,7 @@ Compiled By: Rob Oosthoek
 - `Router #: conf t`
 - `Router (config)#: router rip`
 - `Router (config-router)#: network 192.168.1.0`
-- `Router (config-router)#: network 192.168.2.0`
+- `Router (config-router)#: network 192.168.2.0`  
 What interfaces the Router should use to communicate with other routers. These're also advertised.
 
 ##### Examining Default RIP Settings
@@ -121,20 +121,20 @@ What interfaces the Router should use to communicate with other routers. These'r
 ##### Disabling Auto Summarization
 - `Router #: conf t`
 - `Router (config)#: router rip`
-- `Router (config)#: no auto-summary`
+- `Router (config)#: no auto-summary`  
 RIPv2 must be enabled to do this.
 
 ##### Configuring Passive Interfaces
 - `Router #: conf t`
 - `Router (config)#: router rip`
-- `Router (config)#: passive-interface g0/0`
+- `Router (config)#: passive-interface g0/0`  
 RIP should only be sending updates to other routers. Int g0/0 no longer sends/receives updates.
 
 ##### Propagating A Default Route
 - `Router #: conf t`
 - `Router (config)#: ip route 0.0.0.0 0.0.0.0 exit-int next-hop-ip`
 - `Router (config)#: router rip`
-- `Router (config)#: default-information originate`
+- `Router (config)#: default-information originate`  
 This is like a Static Default Route, advertised to other routers.
 
 
@@ -155,7 +155,7 @@ This is like a Static Default Route, advertised to other routers.
 - `Router (config)#: ipv6 unicast-routing`
 - `Router (config)#: ipv6 route 0::/0 2001:DB8:FEED:1::1 (ip-address-next-router -> niet zeker :S)`
 - `Router (config)#: interface s0/0/0`
-- `Router (config-if)#: ipv6 rip (domain-name) default-information originate`
+- `Router (config-if)#: ipv6 rip (domain-name) default-information originate`  
 7.3.2.1 anyone? plz? XD
 
 ##### Examining RIPng Configuration
