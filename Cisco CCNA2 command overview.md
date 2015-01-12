@@ -10,9 +10,89 @@ The command list presents the command, followed by a basic description of its fu
 List of Commands
 ----------------
 
+### Chapter 6
+Compiled By: Rob Oosthoek
+
+#### IPv4
+
+##### Verify Setup
+- `show ip route`
+- `show ip route static`
+- `show running-config | section ip route`
+
+##### Static Routes
+- Next-Hop: use `ip-address-next-router`
+- Directly-Connected: use `exit-int`
+
+1. `conf t`
+2. `ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
+
+##### Fully Specified Static Routes
+1. `conf t`
+2. `ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
+
+##### Default Static Routes
+- Next-Hop: use `ip-address-next-router`
+- Directly-Connected: use `exit-int`
+
+1. `conf t`
+2. `ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
+
+##### Static Routes Summarized
+Attention: use the correct number of networking-bits with the subnet
+
+1. `conf t`
+2. `ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
+
+##### Floating Static Routes
+- Next-Hop: `ip-address-next-router`
+- Directly-Connected: `exit-int`
+
+1. `conf t`
+2. `ip (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
+3. `ip (destination-ip) (subnet-mask) (ip-address-next-router | exit-int) (admin-distance)`
+
+Note: Routes configured with admin-distance will be used as backups should the primary route fail.
+
+#### IPv6
+
+##### Verifying
+1. `show ipv6 route`
+2. `show ipv6 route static`
+3. `show running-config | section ipv6 route`
+
+##### Static Routes
+- Next-Hop: use `ipv6-address-next-router`
+- Directly-Connected: use `exit-int`
+
+1. `conf t`
+2. `ipv6 unicast-routing`
+3. `ipv6 route (destination-ipv6/prefix-length) (ipv6-address-next-router | exit-int)`
+
+##### Fully Specified Static Routes
+1. `conf t`
+2. `ipv6 unicast-routing`
+3. `ipv6 route (destination-ipv6/prefix-length) (subnet-mask) (exit-int) (link-local-next-router)`
+
+##### Default Static Routes
+- Next-Hop: use `ip-address-next-router`
+- Directly-Connected: use `exit-int`
+
+Router #: conf t
+1. `ipv6 unicast-routing`
+2. `ipv6 route ::/0 (ip-address-next-router | exit-int)`
+
+##### Static Routes Summarized
+Attention: use the correct number of networking-bits with the subnet
+
+1. `conf t`
+2. `ipv6 unicast-routing`
+3. `ipv6 route (destination-ipv6/prefix-length) (ipv6-address-next-router | exit-int)`
+
 ----------
 
 ### Chapter 10
+Compiled By: Gerard van Kempen
 
 #### Basic PC/DOS Commands
 1. `ipconfig /all`  
