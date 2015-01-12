@@ -3,6 +3,7 @@ Cisco CCNA2 command overview - Chapter 10-11
 About
 -----
 Round brackets () indicate required variables, square brackets [] indicate optional variables.  
+Piping symbols  |  indicate options.
 All types of backquotes and asterisks in this source file are to be ignored; they are only relevant for Markdown rendering.
 
 The command list presents the command, followed by a basic description of its functionality.
@@ -16,78 +17,78 @@ Compiled By: Rob Oosthoek
 #### IPv4
 
 ##### Verify Setup
-- `show ip route`
-- `show ip route static`
-- `show running-config | section ip route`
+- `Router #: show ip route`
+- `Router #: show ip route static`
+- `Router #: show running-config | section ip route`
 
 ##### Static Routes
 - Next-Hop: use `ip-address-next-router`
 - Directly-Connected: use `exit-int`
 
-1. `conf t`
-2. `ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
+1. `Router #: conf t`
+2. `Router (config)#: ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
 
 ##### Fully Specified Static Routes
-1. `conf t`
-2. `ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
+1. `Router #: conf t`
+2. `Router (config)#: ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
 
 ##### Default Static Routes
 - Next-Hop: use `ip-address-next-router`
 - Directly-Connected: use `exit-int`
 
-1. `conf t`
-2. `ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
+1. `Router #: conf t`
+2. `Router (config)#: ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
 
 ##### Static Routes Summarized
 Attention: use the correct number of networking-bits with the subnet
 
-1. `conf t`
-2. `ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
+1. `Router #: conf t`
+2. `Router (config)#: ip route (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
 
 ##### Floating Static Routes
 - Next-Hop: `ip-address-next-router`
 - Directly-Connected: `exit-int`
 
-1. `conf t`
-2. `ip (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
-3. `ip (destination-ip) (subnet-mask) (ip-address-next-router | exit-int) (admin-distance)`
+1. `Router #: conf t`
+2. `Router (config)#: ip (destination-ip) (subnet-mask) (ip-address-next-router | exit-int)`
+3. `Router (config)#: ip (destination-ip) (subnet-mask) (ip-address-next-router | exit-int) (admin-distance)`
 
 Note: Routes configured with admin-distance will be used as backups should the primary route fail.
 
 #### IPv6
 
 ##### Verifying
-1. `show ipv6 route`
-2. `show ipv6 route static`
-3. `show running-config | section ipv6 route`
+1. `Router #: show ipv6 route`
+2. `Router #: show ipv6 route static`
+3. `Router #: show running-config | section ipv6 route`
 
 ##### Static Routes
 - Next-Hop: use `ipv6-address-next-router`
 - Directly-Connected: use `exit-int`
 
-1. `conf t`
-2. `ipv6 unicast-routing`
-3. `ipv6 route (destination-ipv6/prefix-length) (ipv6-address-next-router | exit-int)`
+1. `Router #: conf t`
+2. `Router (config)#: ipv6 unicast-routing`
+3. `Router (config)#: ipv6 route (destination-ipv6/prefix-length) (ipv6-address-next-router | exit-int)`
 
 ##### Fully Specified Static Routes
-1. `conf t`
-2. `ipv6 unicast-routing`
-3. `ipv6 route (destination-ipv6/prefix-length) (subnet-mask) (exit-int) (link-local-next-router)`
+1. `Router #: conf t`
+2. `Router (config)#: ipv6 unicast-routing`
+3. `Router (config)#: ipv6 route (destination-ipv6/prefix-length) (subnet-mask) (exit-int) (link-local-next-router)`
 
 ##### Default Static Routes
 - Next-Hop: use `ip-address-next-router`
 - Directly-Connected: use `exit-int`
 
-Router #: conf t
-1. `ipv6 unicast-routing`
-2. `ipv6 route ::/0 (ip-address-next-router | exit-int)`
+1. `Router #: conf t`
+2. `Router (config)#: ipv6 unicast-routing`
+3. `Router (config)#: ipv6 route ::/0 (ip-address-next-router | exit-int)`
 
 ##### Static Routes Summarized
 Attention: use the correct number of networking-bits with the subnet
 
-1. `conf t`
-2. `ipv6 unicast-routing`
-3. `ipv6 route (destination-ipv6/prefix-length) (ipv6-address-next-router | exit-int)`
+1. `Router #: conf t`
+2. `Router (config)#: ipv6 unicast-routing`
+3. `Router (config)#: ipv6 route (destination-ipv6/prefix-length) (ipv6-address-next-router | exit-int)`
 
 ----------
 
@@ -104,35 +105,35 @@ Sets up a new network configuration.
 
 #### Basic DHCPv4 Configuration
 ##### Standard Router Configuration
-1. `ip dhcp excluded-address (low-address) [high-address]`  
+1. `Router (config)#: ip dhcp excluded-address (low-address) [high-address]`  
 Excludes a single multiple addresses from the DHCP-pool.
-2. `ip dhcp pool (poolname)`  
+2. `Router (config)#: ip dhcp pool (poolname)`  
 Creates a DHCP pool with the specified name and puts the router in DHCP-config mode.
-3. `network (network-number) [network mask | /prefix length]`  
+3. `Router (dhcp-config)#: network (network-address) [network mask | /prefix length]`  
 Defines the address pool for the DHCP server.
-4. `defaul-router (address) [fallback-address1 ... fallback-address7]`  
+4. `Router (dhcp-config)#: default-router (address) [fallback-address1 ... fallback-address7]`  
 Defines the default router or gateway for the DHCP server.
-5. `dns-server (address) [fallback-address1 ... fallback-address7]`  
+5. `Router (dhcp-config)#: dns-server (address) [fallback-address1 ... fallback-address7]`  
 Defines the DNS server for the DHCP server.
-6. `domain-name (name)`  
+6. `Router (dhcp-config)#: domain-name (name)`  
 Change the domain name used by the DHCP server.
-7. `lease (days) [hours] [minutes]`  
+7. `Router (dhcp-config)#: lease (days) [hours] [minutes]`  
 Sets the DHCP lease duration. Default is 1 day.
-8. `lease infinite`  
+8. `Router (dhcp-config)#: lease infinite`  
 Sets the DHCP lease duration to infinite.
-9. `netbios-name-server (address) [fallback-address1 ... fallback-address7]`  
+9. `Router (dhcp-config)#: netbios-name-server (address) [fallback-address1 ... fallback-address7]`  
 Defines the [netBIOS][1] WINS server.
 
 ##### Configuring a Router Port as DHCP Client
 After selecting the interface to configure, enter:  
-`ip address dhcp`
+`Router (if-config)#: ip address dhcp`
 
 #### Basic DCHPv4 Verification
-1. `show running-config | section dhcp`  
+1. `Router #: show running-config | section dhcp`  
 Shows only the DHCP configuration of the running config.
-2. `show ip dhcp binding`  
+2. `Router #: show ip dhcp binding`  
 Shows the MAC to IP address bindings provided by the DHCP server.
-3. `show ip dhcp server statistics`  
+3. `Router #: show ip dhcp server statistics`  
 Displays information regarding the sent and received DHCP packets.  
 This can be used to verify the DHCP configuration and activity.
 
@@ -140,13 +141,13 @@ This can be used to verify the DHCP configuration and activity.
 DHCP relaying enables another router to forward incoming DHCP requests to the router functioning as the actual DHCP server.
 
 1. Select an interface to use as a relay interface  
-`interface (interface)`
+`Router (config)#: interface (interface)`
 2. Define the ip helper-address  
-`ip helper-address (router-ip-address)`
+`Router (if-config)#: ip helper-address (router-ip-address)`
 3. End configuration  
-`end`
+`Router (if-config)#: end`
 4. Verify the configuration  
-`show ip interface (interface)`
+`Router #: show ip interface (interface)`
 
 A line should inform you of the configuration, eg.:  
 `Helper address is 192.198.1.1`
@@ -163,9 +164,9 @@ Note: the `ip helper-address` command forwards the following UDP services by def
 - Port 138: NetBIOS datagram service
 
 #### Troubleshooting a DHCPv4 Configuration
-1. `show ip dhcp conflict`  
+1. `Router #: show ip dhcp conflict`  
 Returns all the address conflicts
-2. `show running-config | include no service dhcp`  
+2. `Router #: show running-config | include no service dhcp`  
 Checks whether `no service dhcp` has __not__ been configured.  
 If it has been configured, it would show up in the output.  
 If all is OK, the output should remain empty.
@@ -179,10 +180,10 @@ If all is OK, the output should remain empty.
 
 #### Debugging a DHCPv4 Configuration
 1. Create an ACL for debugging purposes:  
-`access-list (ACL-number) permit udp any any eq 67`  
-`access-list (ACL-number) permit udp any any eq 68`
+`Router (config)#: access-list (ACL-number) permit udp any any eq 67`  
+`Router (config)#: access-list (ACL-number) permit udp any any eq 68`
 2. Exit config and run:  
-`debug ip packet (ACL-number)`
+`Router #: debug ip packet (ACL-number)`
 
 Other useful command: `debug ip dhcp server events`  
 This command shows all server events related to DHCP requests.
@@ -204,50 +205,50 @@ __Stateful DHCPv6 client__ - The client sends a DHCPv6 REQUEST message to the se
 
 #### Basic DHCPv6 Configuration
 ##### Stateless Server
-1. Enable IPv6 routing: `ipv6 unicast-routing`
-2. Configure DHCPv6 pool: `ipv6 dhcp pool (pool-name)`
-3. Configure pool params: `dns-server (dns-address)`
+1. Enable IPv6 routing: `Router (config)#: ipv6 unicast-routing`
+2. Configure DHCPv6 pool: `Router (config)#: ipv6 dhcp pool (pool-name)`
+3. Configure pool params: `Router (dhcp-config)#: dns-server (dns-address)`
 4. Configure DHCPv6 interface:
   1. Select interface
-  2. `ipv6 dhcp server (pool-name)`
-  3. `ipv6 nd other-config-flag`
+  2. `Router (if-config)#: ipv6 dhcp server (pool-name)`
+  3. `Router (if-config)#: ipv6 nd other-config-flag`
 
 ##### Stateless Client
 1. Select interface
-2. `ipv6 enable`
-3. `ipv6 address autoconfig`
-4. Verify config in elevated-exec: `show ipv6 dhcp pool`
+2. `Router (if-config)#: ipv6 enable`
+3. `Router (if-config)#: ipv6 address autoconfig`
+4. Verify config in privileged-exec: `Router #: show ipv6 dhcp pool`
 
 ##### Stateful Server
-1. Enable IPv6 routing: `ipv6 unicast-routing`
-2. Configure DHCPv6 pool: `ipv6 dhcp pool (pool-name)`
-3. Configure Pool params: `address prefix (ipv6-prefix) [lifetime] [valid-lifetime ] [preferred-lifetime]`  
+1. Enable IPv6 routing: `Router (config)#: ipv6 unicast-routing`
+2. Configure DHCPv6 pool: `Router (config)#: ipv6 dhcp pool (pool-name)`
+3. Configure Pool params: `Router (dhcp-config)#: address prefix (ipv6-prefix) [lifetime] [valid-lifetime ] [preferred-lifetime]`  
 note: Lifetime params can all be replaced by `infinite` if needed.
 4. Configure the DHCPv6 interface:
     1. Select interface
-    2. `ipv6 dhcp server (pool-name)`
-    3. `ipv6 nd managed-config-flag`
+    2. `Router (if-config)#: ipv6 dhcp server (pool-name)`
+    3. `Router (if-config)#: ipv6 nd managed-config-flag`
 
 ##### Stateful Client
 1. Select interface
-2. `ipv6 enable`
-3. `ipv6 address dhcp`
-4. Verify config in elevated-exec: `show ipv6 dhcp pool`
+2. `Router (if-config)#: ipv6 enable`
+3. `Router (if-config)#: ipv6 address dhcp`
+4. Verify config in elevated-exec: `Router #: show ipv6 dhcp pool`
 
-Other useful command: `show ipv6 dhcp binding `  
+Other useful command: `Router #: show ipv6 dhcp binding `  
 This command displays the automatic binding between the link-local address of the client and the address assigned by the server. 
 
 #### Setting up DHCPv6 Relaying
 1. Select interface to use as relay
-2. `ipv6 dhcp relay destination (ipv6-server-address)`
+2. `Router (if-config)#: ipv6 dhcp relay destination (ipv6-server-address)`
 3. end
 
 Verify relaying by running `show ipv6 dhcp interface (interface)`
 
 #### Troubleshooting a DHCPv6 Configuration
-1. `show ipv6 dhcp conflict`  
+1. `Router #: show ipv6 dhcp conflict`  
 Returns all the address conflicts
-2. `show ipv6 interface (interface)`  
+2. `Router #: show ipv6 interface (interface)`  
 Verifies the method of address allocation indicated in the RA message as indicated by the settings of the M and O flags.  
 
 ##### Troubleshooting Workflow According to Cisco
@@ -258,7 +259,7 @@ Verifies the method of address allocation indicated in the RA message as indicat
 5. Test for same subnet or VLAN
 
 #### Debugging a DHCPv6 Configuration
-1. `debug ipv6 dhcp detail`
+1. `Router #: debug ipv6 dhcp detail`
 
 [1]: http://www.wikiwand.com/en/NetBIOS
 [2]: http://www.wikiwand.com/en/IPv6#/Stateless_address_autoconfiguration_.28SLAAC.29
