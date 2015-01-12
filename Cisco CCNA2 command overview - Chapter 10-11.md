@@ -2,7 +2,7 @@ Cisco CCNA2 command overview - Chapter 10-11
 ============================================
 About
 -----
-Round brackets () indicate required variables, square brackets [] indicate optional variables.
+Round brackets () indicate required variables, square brackets [] indicate optional variables.  
 All types of backquotes and asterisks in this source file are to be ignored; they are only relevant for Markdown rendering.
 
 The command list presents the command, followed by a basic description of its functionality.
@@ -10,32 +10,32 @@ The command list presents the command, followed by a basic description of its fu
 List of Commands
 ----------------
 ### Basic PC/DOS Commands
-1. `ipconfig /all`
+1. `ipconfig /all`  
 Shows the complete running network configuration.
-2. `ipconfig /release`
+2. `ipconfig /release`  
 Releases all network settings so a new can be set up.
-3. `ipconfig /renew`
+3. `ipconfig /renew`  
 Sets up a new network configuration.
 
 ### Basic DHCPv4 Configuration
 #### Standard Router Configuration
-1. `ip dhcp excluded-address (low-address) [high-address]`
+1. `ip dhcp excluded-address (low-address) [high-address]`  
 Excludes a single multiple addresses from the DHCP-pool.
-2. `ip dhcp pool (poolname)`
+2. `ip dhcp pool (poolname)`  
 Creates a DHCP pool with the specified name and puts the router in DHCP-config mode.
-3. `network (network-number) [network mask | /prefix length]`
+3. `network (network-number) [network mask | /prefix length]`  
 Defines the address pool for the DHCP server.
-4. `defaul-router (address) [fallback-address1 ... fallback-address7]`
+4. `defaul-router (address) [fallback-address1 ... fallback-address7]`  
 Defines the default router or gateway for the DHCP server.
-5. `dns-server (address) [fallback-address1 ... fallback-address7]`
+5. `dns-server (address) [fallback-address1 ... fallback-address7]`  
 Defines the DNS server for the DHCP server.
-6. `domain-name (name)`
+6. `domain-name (name)`  
 Change the domain name used by the DHCP server.
-7. `lease (days) [hours] [minutes]`
+7. `lease (days) [hours] [minutes]`  
 Sets the DHCP lease duration. Default is 1 day.
-8. `lease infinite`
+8. `lease infinite`  
 Sets the DHCP lease duration to infinite.
-9. `netbios-name-server (address) [fallback-address1 ... fallback-address7]`
+9. `netbios-name-server (address) [fallback-address1 ... fallback-address7]`  
 Defines the [netBIOS][1] WINS server.
 
 #### Configuring a Router Port as DHCP Client
