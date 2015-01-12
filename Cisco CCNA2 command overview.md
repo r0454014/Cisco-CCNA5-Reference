@@ -10,6 +10,8 @@ The command list presents the command, followed by a basic description of its fu
 List of Commands
 ----------------
 
+----------
+
 ### Chapter 10
 
 #### Basic PC/DOS Commands
@@ -69,8 +71,6 @@ DHCP relaying enables another router to forward incoming DHCP requests to the ro
 A line should inform you of the configuration, eg.:  
 `Helper address is 192.198.1.1`
 
-----------
-
 Note: the `ip helper-address` command forwards the following UDP services by default:
 
 - Port 37: Time
@@ -90,8 +90,6 @@ Checks whether `no service dhcp` has __not__ been configured.
 If it has been configured, it would show up in the output.  
 If all is OK, the output should remain empty.
 
-----------
-
 ##### Troubleshooting Workflow According to Cisco
 1. Resolve address conflicts
 2. Verify physical connectivity
@@ -106,8 +104,6 @@ If all is OK, the output should remain empty.
 2. Exit config and run:  
 `debug ip packet (ACL-number)`
 
----------
-
 Other useful command: `debug ip dhcp server events`  
 This command shows all server events related to DHCP requests.
 
@@ -120,8 +116,6 @@ Applied on interface configuration. Resets SLAAC for that interface.
 Modify RA message to indicate Stateless DHCPv6. Applied in interface configuration.
 4. `ipv6 nd managed-config-flag`  
 Modify RA message to indicate Stateful DHCPv6. Overrides Stateless flag.
-
-----------
 
 ##### Notes on Stateless/Stateful DHCPv6
 __Stateless DHCPv6 client__ - The client sends a DHCPv6 INFORMATION-REQUEST message to the DHCPv6 server requesting only configuration parameters, such as DNS server address. The client generated its own IPv6 address using the prefix from the RA message and a self-generated Interface ID.
@@ -176,8 +170,6 @@ Returns all the address conflicts
 2. `show ipv6 interface (interface)`  
 Verifies the method of address allocation indicated in the RA message as indicated by the settings of the M and O flags.  
 
-----------
-
 ##### Troubleshooting Workflow According to Cisco
 1. Resolve address conflicts
 2. Verify allocation method
@@ -188,6 +180,8 @@ Verifies the method of address allocation indicated in the RA message as indicat
 #### Debugging a DHCPv6 Configuration
 1. `debug ipv6 dhcp detail`
 
-
 [1]: http://www.wikiwand.com/en/NetBIOS
 [2]: http://www.wikiwand.com/en/IPv6#/Stateless_address_autoconfiguration_.28SLAAC.29
+
+--------
+
