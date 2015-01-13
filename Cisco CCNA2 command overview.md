@@ -11,6 +11,144 @@ The command list presents the command, followed by a basic description of its fu
 List of Commands
 ----------------
 
+### Chapter 2
+Compiled By: Maikel Tielens
+
+#### Configuring Switch Management
+
+1. `Router# conf terminal`
+2. `Router (config)# interface vlan 99`  
+Management is preferred to be configured on a VLAN
+3. `Router (config-if)# ip address (address) (subnet)`
+4. `Router (config-if)# no shut`
+5. `Router (config-if)# end`
+
+#### Configuring Switch Default Gateway
+
+1. `Router# conf terminal`
+2. `Router (config)# ip default-gateway (address)`
+3. `Router (config)# end`
+
+#### Verifying Interface configuration
+
+- `Router# show ip interface brief`
+
+#### Configuring Duplex Mode
+
+1. `Router# conf terminal`
+2. `Router (config)# interface (interface)`
+3. `Router (config-if)# duplex full`
+4. `Router (config-if)# speed (speed)`
+5. `Router (config-if)# end`
+
+#### Configuring Auto-MDIX
+
+1. Duplex mode and speed has to be set to AUTO
+  1. `Router (config-if)# duplex auto`
+  2. `Router (config-if)# speed auto`
+2. `Router (config-if)# mdix auto`
+
+#### Verification Commands
+
+- `Router# show`
+- `Router# interfaces`
+- `Router# start-up config`
+- `Router# running-config`
+- `Router# flash`
+- `Router# version`
+- `Router# history`
+- `Router# ip`
+- `Router# ip ssh`
+- `Router# mac-address-table`
+- `Router# port-security interface interface`
+
+#### Configuring SSH
+
+1. `Router# config terminal`
+2. `Router (config)# crypto key generate rsa keys 12024`
+3. `Router (config)# username (username) secret (password)`
+4. `Router (config)# line vty 0 15`
+5. `Router (config-if)# transport input ssh`
+6. `Router (config-if)# login local`
+7. `Router (config-if)# exit`
+8. `Router (config)# ip ssh version 2`  
+
+#### DHCP Snooping
+
+This is a Cisco Catalyst feature determining which switch ports can respond to DHCP requests. This makes it harder for hackers to create a DHCP Spoofing attack in a network.
+
+From Conf terminal mode
+
+1. `Router (config)# ip dhcp snooping`
+2. `Router (config)# ip dhcp snooping vlan (vlan-id)`
+3. `Router (config)# interface (interface)`
+4. `Router (config-if)# ip dhcp snooping trust`
+5. `Router (config-if)# interface (interface)`
+6. `Router (config-if)# ip dhcp snooping limit (rate)`  
+This limits the rate at which the attacker can send DHCP requests to the DHCP server
+
+#### Port-Security
+
+1. Enabling Port-Security  
+`Router (config-if)# switchport Port-security`
+2. Adjusting port-security:  
+`Router (config-if)# switchport port-security maximum (value)`
+3. This only allows a number of mac-addresses on the port  
+`Router (config-if)# switchport port-security mac-address`
+4. This only allows the given mac-address to send/receive data on the interface port  
+`Router (config-if)# switchport port-security mac-address sticky`
+5. This allows mac-addresses to be learnt dynamically and also allows you to manually set a MAC address  
+`Router (config-if)# port-Violation`
+6. `Router (config-if)# switchport port-security violation protect`
+7. `Router (config-if)# switchport port-security violation restrict`
+8. `Router (config-if)# switchport port-security violation shutdown`
+
+### Chapter 3
+Compiled By: Maikel Tielens
+
+#### Creating a VLAN
+
+1. `Router (config)# vlan vlan-id`
+2. `Router (config-vlan)# name (name)`
+
+#### Assigning a VLAN to a Port
+
+1. `Router (config-if)# switchport mode access`
+2. `Router (config-if)# switchport access vlan (vlan-id)`
+
+Note: All ports with the same VLAN should be in the same Subnet.
+
+#### Deleting VLANs
+
+- Single VLAN: `Router (config)# no vlan (vlan-id)`
+- All  VLANs:
+  1. `Router (config)# delete vlan.dat`
+  2. `Router (config)# erase startup-config`
+
+#### View VLANs
+
+- `Router# show vlan brief`
+- `Router# show interfaces interface vlan (vlan-id)`
+- `Router# show interfaces interface switchport`
+- `Router# show interfaces interface trunk`
+
+#### Configuring Trunks
+
+1. `Router (config-if)# switchport mode trunk`
+
+(Optional)
+
+- `Router (config-if)# switchport trunk native vlan (vlan-id)`
+- `Router (config-if)# switchport trunk allowed vlan (vlan-ids)`
+
+#### Configuring PVLAN
+
+- `Router (config-if)# switchport protected`
+
+
+
+----------
+
 ### Chapter 6 - Static Routing
 Compiled By: Rob Oosthoek
 
@@ -98,43 +236,43 @@ Compiled By: Rob Oosthoek
 #### IPV4 RIPv1/RIPv2
 
 ##### Configuring RIP
-- `Router #: conf t`
-- `Router (config)#: router rip`
-- `Router (config-router)#: ?`
+1. `Router #: conf t`
+2. `Router (config)#: router rip`
+3. `Router (config-router)#: ?`
 
 ##### Advertising Networks
-- `Router #: conf t`
-- `Router (config)#: router rip`
-- `Router (config-router)#: network 192.168.1.0`
-- `Router (config-router)#: network 192.168.2.0`  
+1. `Router #: conf t`
+2. `Router (config)#: router rip`
+3. `Router (config-router)#: network 192.168.1.0`
+4. `Router (config-router)#: network 192.168.2.0`  
 What interfaces the Router should use to communicate with other routers. These're also advertised.
 
 ##### Examining Default RIP Settings
-- `Router #: Show ip protocols`
-- `Router #: Show ip route | begin Gateway`
+1. `Router #: Show ip protocols`
+2. `Router #: Show ip route | begin Gateway`
 
 ##### Enabling RIPv2
-- `Router #: conf t`
-- `Router (config)#: router rip`
-- `Router (config)#: version 2`
+1. `Router #: conf t`
+2. `Router (config)#: router rip`
+3. `Router (config)#: version 2`
 
 ##### Disabling Auto Summarization
-- `Router #: conf t`
-- `Router (config)#: router rip`
-- `Router (config)#: no auto-summary`  
+1. `Router #: conf t`
+2. `Router (config)#: router rip`
+3. `Router (config)#: no auto-summary`  
 RIPv2 must be enabled to do this.
 
 ##### Configuring Passive Interfaces
-- `Router #: conf t`
-- `Router (config)#: router rip`
-- `Router (config)#: passive-interface g0/0`  
+1. `Router #: conf t`
+2. `Router (config)#: router rip`
+3. `Router (config)#: passive-interface g0/0`  
 RIP should only be sending updates to other routers. Int g0/0 no longer sends/receives updates.
 
 ##### Propagating A Default Route
-- `Router #: conf t`
-- `Router (config)#: ip route 0.0.0.0 0.0.0.0 exit-int next-hop-ip`
-- `Router (config)#: router rip`
-- `Router (config)#: default-information originate`  
+1. `Router #: conf t`
+2. `Router (config)#: ip route 0.0.0.0 0.0.0.0 exit-int next-hop-ip`
+3. `Router (config)#: router rip`
+4. `Router (config)#: default-information originate`  
 This is like a Static Default Route, advertised to other routers.
 
 
@@ -142,26 +280,213 @@ This is like a Static Default Route, advertised to other routers.
 #### IPV6 RIPng
 
 ##### Advertising IPv6 Networks
-- `Router #: conf t`
-- `Router (config)#: ipv6 unicast-routing`
-- `Router (config)#: interface g0/0`
-- `Router (config-if)#: ipv6 rip (domain-name) enable`
-- `Router (config)#: interface s0/0/0`
-- `Router (config-if)#: ipv6 rip (domain-name) enable`
-- `Router (config-if)#: no shutdown`
+1. `Router #: conf t`
+2. `Router (config)#: ipv6 unicast-routing`
+3. `Router (config)#: interface g0/0`
+4. `Router (config-if)#: ipv6 rip (domain-name) enable`
+5. `Router (config)#: interface s0/0/0`
+6. `Router (config-if)#: ipv6 rip (domain-name) enable`
+7. `Router (config-if)#: no shutdown`
 
 ##### Propagating A Default Route
-- `Router #: conf t`
-- `Router (config)#: ipv6 unicast-routing`
-- `Router (config)#: ipv6 route 0::/0 2001:DB8:FEED:1::1 (ip-address-next-router -> niet zeker :S)`
-- `Router (config)#: interface s0/0/0`
-- `Router (config-if)#: ipv6 rip (domain-name) default-information originate`  
+1. `Router #: conf t`
+2. `Router (config)#: ipv6 unicast-routing`
+3. `Router (config)#: ipv6 route 0::/0 2001:DB8:FEED:1::1 (ip-address-next-router -> niet zeker :S)`
+4. `Router (config)#: interface s0/0/0`
+5. `Router (config-if)#: ipv6 rip (domain-name) default-information originate`  
 7.3.2.1 anyone? plz? XD
 
 ##### Examining RIPng Configuration
-- `Router #: show ipv6 protocols`
-- `Router #: show ipv6 route`
-- `Router #: show ipv6 route rip`
+1. `Router #: show ipv6 protocols`
+2. `Router #: show ipv6 route`
+3. `Router #: show ipv6 route rip`
+
+----------
+
+###Chapter 8
+Compiled By: Michael Bergs
+
+#### Adjacency Database
+
+- `Router #: show ip ospf neighbor`
+
+####Link-State Database(LSDB)
+
+- `Router #: show ip ospf database`
+
+#### Forwarding Database
+
+- `Router #: show ip route`
+
+
+#### Assigning a Router ID
+
+1. `Router #: conf t`
+2. `Router (config)#: router ospf <id>`  
+Id should be a value within the 1 - 65535 range.
+3. `Router (config-router)#: router-id 1.1.1.1`
+4. `Router (config-router)#: end`
+
+#### Show router ID
+
+- `Router #: show ip protocols`
+
+#### Clear OSPF processes
+
+- `Router #: clear ip ispf process`
+
+- `Reset ALL OSPF precesses? [no]: y`
+
+#### Show ONLY router ID
+
+- `Router #: show ip protocols | section router ID`
+
+
+#### Configuring a Loopback interface
+
+1. `Router #: conf t`
+2. `Router (config)#: interface loopback 0`
+3. `Router (config-if)#: ip address (ip-address) (netmask)`
+4. `Router (config-if)#: end`
+
+
+#### Advertising Networks in OSPF
+
+(Requires clarification)
+
+1. `Router #: conf t`
+2. `Router (config)#: router ospf 10`
+3. `Router (config-router)#: network 172.16.2.0 0.0.0.255 area 0`
+4. `Router (config-router)#: network 172.16.3.0 0.0.0.3 area 0`
+5. `Router (config-router)#: network 192.168.10.8 0.0.0.3 area 0`
+6. `Router (config-router)#: end`
+
+#### Configuring Passive Interfaces
+1. `Router #: conf t`
+2. `Router (config)#: router ospf 10`
+3. `Router (config-router)#: passive-interface GigabitEthernet 0/0`
+4. `Router (config-router)#: end`
+
+1. `Router #: conf t`
+2. `Router (config)#: router ospf 10`
+3. `Router (config-router)#: passive-interface default`
+4. `Router (config-router)#: end`
+
+#### Adjusting Serial Interface
+
+1. `Router #: conf t`
+2. `Router (config)#: int s0/0/1`
+3. `Router (config-if)#: bandwidth 64`
+4. `Router (config-if)#: end`
+
+#### Setting ospf cost
+
+1. `Router #: conf t`
+2. `Router (config)#: int s0/0/1`
+3. `Router (config-if)#: no bandwidth 64`
+4. `Router (config-if)#: ip ospf cost 15625`
+5. `Router (config-if)#: end`
+
+#### Verifying ospf protocols
+
+- `Router #: show ip protocols`
+
+#### Verifying ospf process Information
+
+- `Router #: show ip ospf`
+
+----------
+
+### Chapter 9
+Compiled By: Michael Bergs
+
+#### The "any" and "host" Keywords
+
+1. `Router #: conf t`
+2. `Router (config)#: access-list 1 permit 0.0.0.0 255.255.255.255`
+3. `Router (config)#: access-list 1 permit any`
+
+1. `Router #: conf t`
+2. `Router (config)#: access-list 1 permit 0.0.0.0 255.255.255.255`
+3. `Router (config)#: access-list 1 permit host 192.168.10.10`
+
+1. `Router #: conf t`
+2. `Router (config)#: access-list 1 permit 0.0.0.0 255.255.255.255`
+3. `Router (config)#: access-list 1 deny any`
+
+#### Removing an ACL
+
+1. `Router #: conf t`
+2. `Router (config)#: no access-list 10`
+3. `Router (config)#: exit`
+
+#### Show an ACL
+
+- `Router #: show access-lists`
+
+#### Permit a specific Subnet
+
+1. `Router #: conf t`
+2. `Router (config)#: access-list 1 permit 0.0.0.0 255.255.255.255`
+3. `Router (config)#: interface s0/0/0`
+4. `Router (config-if)#: ip access-group 1 out`
+
+#### Deny a specific Subnet
+
+1. `Router #: conf t`
+2. `Router (config)#: access-list 1 deny host 0.0.0.0`
+3. `Router (config)#: access-list 1 permit any`
+4. `Router (config)#: interface s0/0/0`
+5. `Router (config-if)#: ip access-group 1 in`
+
+#### Creating named ACLs
+
+1. `Router #: conf t`
+2. `Router (config)#: ip access-list standard NO_ACCESS`
+3. `Router (config-std-nacl)#: deny host 192.168.11.10`
+4. `Router (config-std-nacl)#: permit any`
+5. `Router (config-std-nacl)#: exit`
+
+#### Commenting ACLs
+
+1. `Router #: conf t`
+2. `Router (config)#: access-list 1 remark Do not allowed Guest workstation through`
+3. `Router (config)#: access-list 1 deny host 192.168.10.10`
+
+#### Securing VTY ports with a standard ipv4 ACL
+
+1. `Router #: conf t`
+2. `Router (config)#: line vty 0 4`
+3. `Router (config-line)#: login local`
+4. `Router (config-line)#: transport input ssh`
+5. `Router (config-line)#: access-class 21 in`
+6. `Router (config-line)#: exit`
+7. `Router (config)#: access-list 21 permit 192.168.10.0. 0.0.0.255`
+8. `Router (config)#: access-list 21 deny any`
+
+#### Configuring extended ACLs
+
+1. `Router #: conf t`
+2. `Router (config)#: access-list 103 permit tcp 192.168.10.0. 0.0.0.255 any eq 80`
+3. `Router (config)#: access-list 103 permit tcp 192.168.10.0. 0.0.0.255 any eq 443`
+4. `Router (config)#: access-list 104 permit tcp any 192.168.10.0. 0.0.0.255 established`
+
+ACL 103 allows ports 80 and 443  
+ACL 104 establishes http and https replies
+
+#### Creating named Extended ACLs
+
+1. `Router #: conf t`
+2. `Router (config)#: ip access-list extended SURFING`
+3. `Router (config-ext-nacl)#: permit tcp 192.168.10.0 0.0.0.255 any eq 80`
+4. `Router (config-ext-nacl)#: permit tcp 192.168.10.0 0.0.0.255 any eq 443`
+5. `Router (config-ext-nacl)#: exit`
+6. `Router (config)#: ip access-list extended BROWSING`
+7. `Router (config-ext-nacl)#: permit tcp 192.168.10.0 0.0.0.255 established`
+8. `Router (config-ext-nacl)#: exit`
+9. `Router (config)#: interface g0/0`
+10. `Router (config-if)#: ip access-group SURFING in`
+11. `Router (config-if)#: ip access-group BROWSING out`
 
 ----------
 
@@ -199,7 +524,7 @@ Defines the [netBIOS][netbios] WINS server.
 
 ##### Configuring a Router Port as DHCP Client
 After selecting the interface to configure, enter:  
-`Router (if-config)#: ip address dhcp`
+`Router (config-if)#: ip address dhcp`
 
 #### Basic DCHPv4 Verification
 1. `Router #: show running-config | section dhcp`  
@@ -216,9 +541,9 @@ DHCP relaying enables another router to forward incoming DHCP requests to the ro
 1. Select an interface to use as a relay interface  
 `Router (config)#: interface (interface)`
 2. Define the ip helper-address  
-`Router (if-config)#: ip helper-address (router-ip-address)`
+`Router (config-if)#: ip helper-address (router-ip-address)`
 3. End configuration  
-`Router (if-config)#: end`
+`Router (config-if)#: end`
 4. Verify the configuration  
 `Router #: show ip interface (interface)`
 
@@ -283,13 +608,13 @@ __Stateful DHCPv6 client__ - The client sends a DHCPv6 REQUEST message to the se
 3. Configure pool params: `Router (dhcp-config)#: dns-server (dns-address)`
 4. Configure DHCPv6 interface:
   1. Select interface
-  2. `Router (if-config)#: ipv6 dhcp server (pool-name)`
-  3. `Router (if-config)#: ipv6 nd other-config-flag`
+  2. `Router (config-if)#: ipv6 dhcp server (pool-name)`
+  3. `Router (config-if)#: ipv6 nd other-config-flag`
 
 ##### Stateless Client
 1. Select interface
-2. `Router (if-config)#: ipv6 enable`
-3. `Router (if-config)#: ipv6 address autoconfig`
+2. `Router (config-if)#: ipv6 enable`
+3. `Router (config-if)#: ipv6 address autoconfig`
 4. Verify config in privileged-exec: `Router #: show ipv6 dhcp pool`
 
 ##### Stateful Server
@@ -299,13 +624,13 @@ __Stateful DHCPv6 client__ - The client sends a DHCPv6 REQUEST message to the se
 note: Lifetime params can all be replaced by `infinite` if needed.
 4. Configure the DHCPv6 interface:
     1. Select interface
-    2. `Router (if-config)#: ipv6 dhcp server (pool-name)`
-    3. `Router (if-config)#: ipv6 nd managed-config-flag`
+    2. `Router (config-if)#: ipv6 dhcp server (pool-name)`
+    3. `Router (config-if)#: ipv6 nd managed-config-flag`
 
 ##### Stateful Client
 1. Select interface
-2. `Router (if-config)#: ipv6 enable`
-3. `Router (if-config)#: ipv6 address dhcp`
+2. `Router (config-if)#: ipv6 enable`
+3. `Router (config-if)#: ipv6 address dhcp`
 4. Verify config in elevated-exec: `Router #: show ipv6 dhcp pool`
 
 Other useful command: `Router #: show ipv6 dhcp binding `  
@@ -313,7 +638,7 @@ This command displays the automatic binding between the link-local address of th
 
 #### Setting up DHCPv6 Relaying
 1. Select interface to use as relay
-2. `Router (if-config)#: ipv6 dhcp relay destination (ipv6-server-address)`
+2. `Router (config-if)#: ipv6 dhcp relay destination (ipv6-server-address)`
 3. end
 
 Verify relaying by running `show ipv6 dhcp interface (interface)`
@@ -346,12 +671,12 @@ Compiled By: Gerard van Kempen
 1. `Router (config)#: ip nat inside source static (local-ip) (global-ip)`
 2. `Router (config)#: interface (interface)`  
 Specifies inside interface.
-3. `Router (if-config)#: ip nat inside`  
+3. `Router (config-if)#: ip nat inside`  
 Sets inside interface.
-4. `Router (if-config)#: exit`
+4. `Router (config-if)#: exit`
 5. `Router (config)#: interface (interface)`  
 Specifies outside interface.
-6. `Router (if-config)#: ip nat outside`  
+6. `Router (config-if)#: ip nat outside`  
 Sets outside interface.
 
 #### Verifying Static NAT
@@ -364,8 +689,8 @@ Sets outside interface.
 1. `Router (config)#: ip nat pool (name) [start-ip] [end-ip] [netmask (netmask) | prefix-length (prefixlength)]`
 2. `Router (config)#: access-list (ACL-number) permit (source) [source-wildcard]`
 3. `Router (config)#: ip nat inside source list (ACL-number) pool (name)`
-4. Select interface, then: `Router (if-config)#: ip nat inside`
-5. Select interface, then: `Router (if-config)#: ip nat outside`
+4. Select interface, then: `Router (config-if)#: ip nat inside`
+5. Select interface, then: `Router (config-if)#: ip nat outside`
 
 #### Verifying Dynamic NAT
 - Option 1: `Router #: show ip nat translations`
@@ -381,14 +706,14 @@ Sets outside interface.
 1. `Router (config)#: ip nat pool (name) [start-ip] [end-ip] [netmask (netmask) | prefix-length (prefixlength)]`
 2. `Router (config)#: access-list (ACL-number) permit (source) [source-wildcard]`
 3. `Router (config)#: ip nat inside source list (ACL-number) pool (name) overload`
-4. Select interface, then: `Router (if-config)#: ip nat inside`
-5. Select interface, then: `Router (if-config)#: ip nat outside`
+4. Select interface, then: `Router (config-if)#: ip nat inside`
+5. Select interface, then: `Router (config-if)#: ip nat outside`
 
 ##### Single Address
 1. `Router (config)#: access-list (ACL-number) permit (source) [source-wildcard]`
 2. `Router (config)#: ip nat inside source list (ACL-number) interface (interface) overload`
-3. Select interface, then: `Router (if-config)#: ip nat inside`
-4. Select interface, then: `Router (if-config)#: ip nat outside`
+3. Select interface, then: `Router (config-if)#: ip nat inside`
+4. Select interface, then: `Router (config-if)#: ip nat outside`
 
 #### Verifying PAT
 - Option 1:
