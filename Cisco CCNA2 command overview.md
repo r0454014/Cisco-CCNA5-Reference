@@ -403,6 +403,7 @@ Sets outside interface.
 
 #### Troubleshooting NAT
 Use any combination of following commands to pinpoint the issue:
+
 - `Router #: show ip nat translations`
 - `Router #: show ip nat statistics`
 - `Router #: clear ip nat translation *`
