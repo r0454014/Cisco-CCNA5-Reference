@@ -211,6 +211,8 @@ Note: Serial interfaces have an extra command: `Router (config-if)# clock rate (
 Note: Static routes can also route two addresses: `Router (config)# ip route (address) (netmask) (address)`  
 IPv6 Routes do not require netmasks, but /xx indicators. Eg.: `R2 (config) # ipv6 route 2001:0DB8:ACAD:2::/64 s0/0/0`
 
+----------
+
 ### Chapter 5
 Compiled By: Tobias Basteyns
 
